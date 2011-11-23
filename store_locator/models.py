@@ -51,9 +51,9 @@ class LocationManager(models.Manager):
 
 class Location(models.Model):
     name = models.CharField(max_length=255)
-    address = models.TextField(max_length=255, blank=True)
-    latitude = models.FloatField(blank=True, null=True)
-    longitude = models.FloatField(blank=True, null=True)
+    address = models.TextField(max_length=255, blank=False)
+    latitude = models.FloatField(blank=False, null=True)
+    longitude = models.FloatField(blank=False, null=True, help_text="If you do not enter a latitude and longitude we will try to find them for you using Google Maps.")
     description = models.TextField(blank=True, null=True)
     phone = models.CharField(max_length=255, blank=True, null=True)
     url = models.URLField(max_length=255, blank=True, null=True)
