@@ -33,6 +33,16 @@ Your installed apps should look something like this:
 	    'cms',
 	    'store_locator',
 	)
+
+Finally, add store_locator.urls to your urls.py so that we can make a few 
+ajax calls needed to interact with the map.  
+
+urlpatterns = patterns('',
+    url(r'^admin/', include(admin.site.urls)),
+    url(r'^tinymce/', include('tinymce.urls')),
+    url(r'^store-locator/', include('store_locator.urls')),
+    url(r'^', include('cms.urls')),
+)
 	
 Usage
 =============

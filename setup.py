@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 import os
 
-version = __import__('cms_themes').__version__
+version = __import__('store_locator').__version__
 
 install_requires = [
     'setuptools',
@@ -10,12 +10,12 @@ install_requires = [
 ]
 
 setup(
-    name = "django-cms-themes",
+    name = "django-cms-storelocator",
     version = version,
-    url = 'http://github.com/megamark16/django-cms-themes',
+    url = 'http://github.com/megamark16/django-cms-storelocator',
     license = 'BSD',
     platforms=['OS Independent'],
-    description = "Load prepackaged themes (templates and accompanying media) into Django CMS projects through the admin",
+    description = "A store locator extension for Django CMS",
     author = "Mark Ransom",
     author_email = 'megamark16@gmail.com',
     packages=find_packages(),
@@ -33,6 +33,6 @@ setup(
         'Topic :: Internet :: WWW/HTTP :: Dynamic Content',
     ],
     package_dir={
-        'cms_themes': 'cms_themes',
+        'store_locator': 'store_locator',
     },
 )
