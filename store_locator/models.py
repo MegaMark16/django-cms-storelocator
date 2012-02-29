@@ -49,7 +49,14 @@ class LocationManager(models.Manager):
         return dist
 
 
+class LocationType(models.Model):
+    name = models.CharField(max_length=255)
+
+    def __unicode__(self):
+        return self.name
+
 class Location(models.Model):
+    location_type = models.ForeignKey(LocationType, blank=True, null=True)
     name = models.CharField(max_length=255)
     address = models.TextField(max_length=255, blank=False)
     latitude = models.FloatField(blank=False, null=True)
@@ -69,7 +76,18 @@ class Location(models.Model):
     
     def get_single_line_address(self):
         return self.address.replace('\n', ', ')
-        
+
+DISTANCE_CHOICES = (
+    ('1', '1 Miles'),        
+    ('5', '5 Miles'),        
+    ('10', '10 Miles'),        
+    ('15', '15 Miles'),        
+    ('25', '25 Miles'),        
+    ('50', '50 Miles'),        
+    ('100', '100 Miles'),        
+)
+
 class StoreLocator(CMSPlugin):
-    distance = models.IntegerField(default=25)
-    
+    default_distance = models.CharField(max_length=50, default='10', choices=DISTANCE_CHOICES)
+    starting_location = models.CharField(max_length=255, help_text="A city or address to center the map on.")
+

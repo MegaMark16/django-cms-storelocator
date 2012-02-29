@@ -1,8 +1,8 @@
 from django.contrib import admin, messages
 from django.conf.urls.defaults import patterns, url
-from models import Location
+from models import Location, LocationType
 from django.conf import settings
-from store_locator.views import get_lat_long
+from store_locator.views import get_lat_long, get_locations
 
 class LocationAdmin(admin.ModelAdmin):
     list_display = ('id','name','address','phone', 'url')
@@ -11,7 +11,7 @@ class LocationAdmin(admin.ModelAdmin):
     
     fieldsets = (
         (None, {
-            'fields': ('name',)
+            'fields': ('name','location_type',)
         }),
         ('Address', {
             'fields': ('address', ('latitude', 'longitude'))
@@ -26,9 +26,11 @@ class LocationAdmin(admin.ModelAdmin):
     def get_urls(self):
         old_urls = super(LocationAdmin, self).get_urls()
         new_urls = patterns('',
-            url(r'^get_lat_long/$', get_lat_long)
+            url(r'^get_lat_long/$', get_lat_long, name='get_lat_long_url'),
+            url(r'^get_locations/$', get_locations, name='get_locations_url'),
         )
         return new_urls + old_urls
 
 admin.site.register(Location, LocationAdmin)
+admin.site.register(LocationType)
 

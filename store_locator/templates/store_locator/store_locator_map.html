@@ -5,22 +5,34 @@
     <form>
         <input type="text" id="locations_search_field" /> 
         <select id="distance_field">
-            <option value="1">1 Mile</option>
-            <option value="5">5 Miles</option>
-            <option value="10">10 Miles</option>
-            <option value="15">15 Miles</option>
-            <option value="25" selected="selected">25 Miles</option>
-            <option value="50">50 Miles</option>
-            <option value="100">100 Miles</option>
+            {% for distance in distance_choices %}
+            <option value="{{ distance.0 }}" {% if instance.default_distance == distance.0 %}selected="selected"{% endif %}>{{ distance.1 }}</option>
+            {% endfor %}
         </select>
         <input type="submit" onClick="location_search(); return false;" value="Search" />
+        <ul class="location_types_list">
+        {% for type in location_types %}
+            <li>
+                <input name="location_type_{{ instance.id }}" type="radio" class="location_type" id="type_{{ type.id }}" value="{{ type.id }}">
+                <label for="type_{{ type.id }}">{{ type.name }}</label>
+            </li>
+        {% endfor %}
+            <li>
+                <input name="location_type_{{ instance.id }}" checked="checked" type="radio" class="location_type" id="type_all" value="">
+                <label for="type_all">All</label>
+            </li>
+        </ul>
     </form>
 </div>
 <div id="map_canvas" lass="locations_map" style="width:600px; height:400px"></div>
+<ul class="location_list">
 
-<script type="text/javascript" src="{{ STATIC_URL }}store_locator/js/store_locator_map.js"></script>
+</ul>
 <script type="text/javascript">
     var get_lat_long_url = "{{ get_lat_long_url }}";
     var get_locations_url = "{{ get_locations_url }}";
+    var starting_location = "{{ instance.starting_location }}";
+    var starting_zoom = {{ instance.default_distance }};
 </script>
 
+<script type="text/javascript" src="{{ STATIC_URL }}store_locator/js/store_locator_map.js"></script>

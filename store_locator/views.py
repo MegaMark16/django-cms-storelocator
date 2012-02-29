@@ -20,13 +20,17 @@ def get_locations(request):
         latitude = float(request.GET.get('lat'))
         longitude = float(request.GET.get('long'))
         distance = int(request.GET.get('distance', 25))
+        location_type = request.GET.get('location_type', '0')
     except:
         return HttpResponse('[]')
-
+    
     locations = Location.objects.near(latitude, longitude, distance)
+    if location_type:
+        locations = [l for l in locations if str(l.location_type_id) == location_type]
     json_locations = []
     for location in locations:
         location_dict = {}
+        location_dict['id'] = location.id
         location_dict['name'] = location.name
         location_dict['address'] = location.address
         location_dict['latitude'] = location.latitude
