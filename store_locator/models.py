@@ -85,7 +85,7 @@ DISTANCE_CHOICES = (
     ('25', '25 Miles'),        
     ('50', '50 Miles'),        
     ('100', '100 Miles'),        
-    ('500', '100 Miles'),        
+    ('500', '500 Miles'),        
 )
 
 class StoreLocator(CMSPlugin):

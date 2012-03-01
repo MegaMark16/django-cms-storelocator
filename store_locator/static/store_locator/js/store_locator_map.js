@@ -41,7 +41,7 @@ function location_search() {
     var distance = $("#distance_field").val();
     var new_zoom = zoom_list[distance];
     if (new_zoom == undefined) {
-        new_zoom = starting_zoom;    
+        new_zoom = zoom_list[starting_zoom];    
     }
     $.get(get_lat_long_url + "?q=" + search_value, function(data) {
         var latitude = data.split(',')[2];
