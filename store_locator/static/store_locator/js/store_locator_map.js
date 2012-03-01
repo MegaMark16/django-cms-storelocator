@@ -6,7 +6,7 @@ var zoom_list = {
     "25" : 10,
     "50" : 9,
     "100" : 8,
-    "500" : 4,
+    "500" : 7,
 }
 
 var markers = new Array;
