@@ -39,6 +39,9 @@ function location_search() {
     clear_markers();
     var distance = $("#distance_field").val();
     var new_zoom = zoom_list[distance];
+    if (new_zoom == undefined) {
+        new_zoom = 10;    
+    }
     $.get(get_lat_long_url + "?q=" + search_value, function(data) {
         var latitude = data.split(',')[2];
         var longitude = data.split(',')[3];

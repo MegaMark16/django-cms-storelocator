@@ -19,7 +19,7 @@ def get_locations(request):
     try:
         latitude = float(request.GET.get('lat'))
         longitude = float(request.GET.get('long'))
-        distance = int(request.GET.get('distance', 25))
+        distance = int(request.GET.get('distance', 0))
         location_type = request.GET.get('location_type', '0')
     except:
         return HttpResponse('[]')
@@ -28,6 +28,7 @@ def get_locations(request):
     if location_type:
         locations = [l for l in locations if location_type in [str(t[0]) for t in l.location_types.values_list('id')]]
     json_locations = []
+    locations.sort(key=lambda loc: loc.distance)
     for location in locations:
         location_dict = {}
         location_dict['id'] = location.id

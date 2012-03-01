@@ -4,11 +4,15 @@
 <div class="locations_search_fields">
     <form>
         <input type="text" id="locations_search_field" /> 
+        {% if instance.show_distance %}
         <select id="distance_field">
             {% for distance in distance_choices %}
             <option value="{{ distance.0 }}" {% if instance.default_distance == distance.0 %}selected="selected"{% endif %}>{{ distance.1 }}</option>
             {% endfor %}
         </select>
+        {% else %}
+        <input type="hidden" id="distance_field" value="9999" />
+        {% endif %}
         <input type="submit" onClick="location_search(); return false;" value="Search" />
         <ul class="location_types_list">
         {% for type in location_types %}
