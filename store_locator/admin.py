@@ -11,7 +11,7 @@ class LocationAdmin(admin.ModelAdmin):
     
     fieldsets = (
         (None, {
-            'fields': ('name','location_type',)
+            'fields': ('name','location_types',)
         }),
         ('Address', {
             'fields': ('address', ('latitude', 'longitude'))

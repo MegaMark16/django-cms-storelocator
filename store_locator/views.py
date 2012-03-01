@@ -26,7 +26,7 @@ def get_locations(request):
     
     locations = Location.objects.near(latitude, longitude, distance)
     if location_type:
-        locations = [l for l in locations if str(l.location_type_id) == location_type]
+        locations = [l for l in locations if location_type in [str(t[0]) for t in l.location_types.values_list('id')]]
     json_locations = []
     for location in locations:
         location_dict = {}

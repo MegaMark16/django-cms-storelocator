@@ -2,6 +2,7 @@
 *.vim
 *.swp
 *.swo
+*.swn
 *.py~
 *.html~
 *.txt~

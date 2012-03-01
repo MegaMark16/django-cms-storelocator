@@ -56,7 +56,7 @@ class LocationType(models.Model):
         return self.name
 
 class Location(models.Model):
-    location_type = models.ForeignKey(LocationType, blank=True, null=True)
+    location_types = models.ManyToManyField(LocationType, blank=True, null=True)
     name = models.CharField(max_length=255)
     address = models.TextField(max_length=255, blank=False)
     latitude = models.FloatField(blank=False, null=True)
