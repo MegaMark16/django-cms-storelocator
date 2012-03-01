@@ -6,6 +6,7 @@ var zoom_list = {
     "25" : 10,
     "50" : 9,
     "100" : 8,
+    "500" : 4,
 }
 
 var markers = new Array;
@@ -40,7 +41,7 @@ function location_search() {
     var distance = $("#distance_field").val();
     var new_zoom = zoom_list[distance];
     if (new_zoom == undefined) {
-        new_zoom = 10;    
+        new_zoom = starting_zoom;    
     }
     $.get(get_lat_long_url + "?q=" + search_value, function(data) {
         var latitude = data.split(',')[2];
