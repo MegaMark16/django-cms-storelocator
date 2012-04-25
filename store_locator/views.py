@@ -6,7 +6,19 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
-from store_locator.models import Location
+from store_locator.models import StoreLocator, DISTANCE_CHOICES, LocationType, Location
+
+def show_locations(request):
+    get_lat_long_url = reverse('get_lat_long_url')
+    get_locations_url = reverse('get_locations_url')
+    location_types = LocationType.objects.all()
+    params = {
+        'get_lat_long_url': get_lat_long_url,
+        'get_locations_url': get_locations_url,
+        'distance_choices': DISTANCE_CHOICES,
+        'location_types': location_types,
+    }
+    return render_to_response('store_locator/store_locator_map_view.html', params, context_instance=RequestContext(request))
 
 def get_lat_long(request):
     if not request.GET.get('q'):

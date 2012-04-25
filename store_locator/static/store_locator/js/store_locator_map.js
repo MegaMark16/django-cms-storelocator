@@ -7,6 +7,7 @@ var zoom_list = {
     "50" : 9,
     "100" : 8,
     "500" : 7,
+    "2000" : 4,
 }
 
 var markers = new Array;
@@ -21,7 +22,7 @@ var infoWindow = new google.maps.InfoWindow();
 var search_value = '';
 
 $(document).ready(function() {
-    location_search();
+    //location_search();
 });
 
 document.map = map;
