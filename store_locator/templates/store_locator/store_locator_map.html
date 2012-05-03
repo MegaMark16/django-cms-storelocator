@@ -15,16 +15,23 @@
         {% endif %}
         <input type="submit" onClick="location_search(); return false;" value="Search" />
         <ul class="location_types_list">
-        {% for type in location_types %}
+        {% for type in instance.show_location_types.all %}
+            <li>
+                <input {% if forloop.first %}checked="checked" {% endif %}name="location_type_{{ instance.id }}" type="radio" class="location_type" id="type_{{ type.id }}" value="{{ type.id }}">
+                <label for="type_{{ type.id }}">{{ type.name }}</label>
+            </li>
+        {% empty %}
+            {% for type in location_types %}
             <li>
                 <input name="location_type_{{ instance.id }}" type="radio" class="location_type" id="type_{{ type.id }}" value="{{ type.id }}">
                 <label for="type_{{ type.id }}">{{ type.name }}</label>
             </li>
-        {% endfor %}
+            {% endfor %}
             <li>
                 <input name="location_type_{{ instance.id }}" checked="checked" type="radio" class="location_type" id="type_all" value="">
                 <label for="type_all">All</label>
             </li>
+        {% endfor %}
         </ul>
     </form>
 </div>

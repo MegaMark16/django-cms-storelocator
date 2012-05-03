@@ -90,5 +90,6 @@ DISTANCE_CHOICES = (
 
 class StoreLocator(CMSPlugin):
     default_distance = models.CharField(max_length=50, default='10', choices=DISTANCE_CHOICES)
-    starting_location = models.CharField(max_length=255, help_text="A city or address to center the map on.")
+    starting_location = models.CharField(max_length=255, help_text="A city or address to center the map on.", blank=True)
     show_distance = models.BooleanField(default=True, help_text='Disabling this will render all locations on the map regardless of zoom level')
+    show_location_types = models.ManyToManyField(LocationType, blank=True, null=True)

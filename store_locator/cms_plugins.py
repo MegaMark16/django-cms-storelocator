@@ -15,7 +15,7 @@ class StoreLocatorPlugin(CMSPluginBase):
     def render(self, context, instance, placeholder):
         get_lat_long_url = reverse('admin:get_lat_long_url')
         get_locations_url = reverse('admin:get_locations_url')
-        location_types = LocationType.objects.all()
+        location_types = instance.show_location_types.all() or LocationType.objects.all()
         context.update({
             'get_lat_long_url': get_lat_long_url,
             'get_locations_url': get_locations_url,
