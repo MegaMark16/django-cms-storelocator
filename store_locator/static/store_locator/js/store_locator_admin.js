@@ -9,9 +9,9 @@ catch(err) {
 
 function get_lat_long() {
     var address = $j(this).val();
-    $j.get(get_lat_long_url + address, function(data, code) {
-        $j("input#id_latitude").val(data.split(",")[2]);
-        $j("input#id_longitude").val(data.split(",")[3]);
+    $j.getJSON(get_lat_long_url + address, function(data, code) {
+      $j("input#id_latitude").val(data.results[0].geometry.location.lat);
+      $j("input#id_longitude").val(data.results[0].geometry.location.lng);
     });
 }
 
