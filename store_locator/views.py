@@ -1,5 +1,5 @@
 import urllib2
-import urllib 
+import urllib
 import json
 
 from django.core.urlresolvers import reverse
@@ -24,7 +24,7 @@ def get_lat_long(request):
     if not request.GET.get('q'):
         return HttpResponse('')
     args = urllib.urlencode({'q': request.GET.get('q')})
-    r = urllib2.urlopen("http://maps.google.com/maps/geo?output=csv&%s" % args)
+    r = urllib2.urlopen("http://maps.googleapis.com/maps/api/geocode/json?address=%s&sensor=false" % args)
     return HttpResponse(r.read())
 
 def get_locations(request):
@@ -35,7 +35,7 @@ def get_locations(request):
         location_type = request.GET.get('location_type', '0')
     except:
         return HttpResponse('[]')
-    
+
     locations = Location.objects.near(latitude, longitude, distance)
     if location_type:
         locations = [l for l in locations if location_type in [str(t[0]) for t in l.location_types.values_list('id')]]

@@ -17,7 +17,7 @@ var myOptions = {
   center: latlng,
   mapTypeId: google.maps.MapTypeId.ROADMAP
 };
-var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);  
+var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
 var infoWindow = new google.maps.InfoWindow();
 var search_value = '';
 
@@ -42,21 +42,14 @@ function location_search() {
     var distance = $("#distance_field").val();
     var new_zoom = zoom_list[distance];
     if (new_zoom == undefined) {
-        new_zoom = zoom_list[starting_zoom];    
+        new_zoom = zoom_list[starting_zoom];
     }
-    $.get(get_lat_long_url + "?q=" + search_value, function(data) {
-        var latitude = data.split(',')[2];
-        var longitude = data.split(',')[3];
-        map.setZoom(new_zoom);            
-        /*var marker = new google.maps.Marker({
-            position: new google.maps.LatLng(latitude, longitude),
-            title: search_value,
-        });
-        marker.setMap(map);
-        markers.push(marker);*/
+    $.getJSON(get_lat_long_url + "?q=" + search_value, function(data) {
+        var latitude = data.results[0].geometry.location.lat;
+        var longitude = data.results[0].geometry.location.lng;
+        map.setZoom(new_zoom);
         map.setCenter(new google.maps.LatLng(latitude, longitude));
         var search_params = {
-
             "lat" : latitude,
             "long" : longitude,
             "distance" : distance,
@@ -103,7 +96,7 @@ function render_location(location_info) {
     if (location_info.url) {
         var website = $("<a>", {html: location_info.url, "href": location_info.url});
         $(location_item).append("<br />");
-        var location_website_item = $("<span>",{ 
+        var location_website_item = $("<span>",{
             'class': 'location_url',
             html: "Website: "
         });
@@ -117,14 +110,14 @@ function render_location(location_info) {
 function add_location_info_item(location_info, item_name, item_label) {
     if (location_info[item_name] != '') {
         var return_info = $("<span>");
-        $(return_info).append("<br />"); 
+        $(return_info).append("<br />");
         if (item_label) {
-            $(return_info).append($("<span>",{ 
+            $(return_info).append($("<span>",{
                 'class': 'location_' + item_name + '_label',
                 html: item_label + ": "
             }));
         }
-        $(return_info).append($("<span>",{ 
+        $(return_info).append($("<span>",{
             'class': 'location_' + item_name,
             html: location_info[item_name].replace(/\r/g, "<br />")
         }));
@@ -138,13 +131,13 @@ function get_location_marker_click_listener(location_info, location_marker) {
         content = "<strong>" + location_info.name + "</strong><br>" +
             location_info.address.replace(/\n/g, '<br />') + "<br>" +
             "<a href='http://maps.google.com/maps?saddr=" + search_value + "&daddr=" + location_info.address.replace(/\r/g, ", ") + "'>Directions</a>";
-        if (location_info.url != '') { 
+        if (location_info.url != '') {
             content += "<br><strong>Website:</strong> <a href='" + location_info.url + "'>" + location_info.url + "</a>";
         }
-        if (location_info.phone != '') { 
+        if (location_info.phone != '') {
             content += "<br><strong>Phone:</strong> " + location_info.phone;
         }
-        if (location_info.description != '') { 
+        if (location_info.description != '') {
             content += "<br><i> " + location_info.description + "</i>";
         }
 
@@ -153,4 +146,3 @@ function get_location_marker_click_listener(location_info, location_marker) {
 
     }
 }
-
