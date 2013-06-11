@@ -23,7 +23,7 @@ def show_locations(request):
 def get_lat_long(request):
     if not request.GET.get('q'):
         return HttpResponse('')
-    args = urllib.urlencode({'q': request.GET.get('q')})
+    args = urllib.urlencode({'q': request.GET.get('q').encode('utf8')})
     r = urllib2.urlopen("http://maps.googleapis.com/maps/api/geocode/json?address=%s&sensor=false" % args)
     return HttpResponse(r.read())
 
